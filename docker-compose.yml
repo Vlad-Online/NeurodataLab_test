@@ -1,0 +1,21 @@
+version: "3.3"
+services:
+  service:
+    build:
+      context: service
+    volumes:
+      - ./service:/var/www/html
+    ports:
+      - "80:80"
+    networks:
+      - backend
+      - default
+  rabbitmq:
+    build:
+      context: rabbitmq
+    ports:
+      - "5672:5672"
+    networks:
+      - default
+networks:
+  backend:
