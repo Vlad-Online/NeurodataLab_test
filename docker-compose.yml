@@ -5,17 +5,17 @@ services:
       context: service
     volumes:
       - ./service:/var/www/html
-    ports:
-      - "80:80"
-    networks:
-      - backend
-      - default
+    restart: always
+    depends_on:
+      - rabbitmq
+      - db
   rabbitmq:
     build:
       context: rabbitmq
     ports:
-      - "5672:5672"
-    networks:
-      - default
-networks:
-  backend:
+      - "15672:15672"
+  db:
+    build:
+      context: postgres
+    environment:
+      POSTGRES_PASSWORD: password

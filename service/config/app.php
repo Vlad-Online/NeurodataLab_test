@@ -165,6 +165,7 @@ return [
         /*
          * Package Service Providers...
          */
+//        \Nuwber\Events\BroadcastEventServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -174,6 +175,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\BroadcastEventServiceProvider::class
 
     ],
 

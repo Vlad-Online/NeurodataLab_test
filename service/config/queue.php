@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('QUEUE_CONNECTION', 'sync'),
+    'default' => env('QUEUE_CONNECTION', 'rabbitmq'),
 
     /*
     |--------------------------------------------------------------------------
@@ -35,35 +35,48 @@ return [
         ],
 
         'database' => [
-            'driver' => 'database',
-            'table' => 'jobs',
-            'queue' => 'default',
+            'driver'      => 'database',
+            'table'       => 'jobs',
+            'queue'       => 'default',
             'retry_after' => 90,
         ],
 
         'beanstalkd' => [
-            'driver' => 'beanstalkd',
-            'host' => 'localhost',
-            'queue' => 'default',
+            'driver'      => 'beanstalkd',
+            'host'        => 'localhost',
+            'queue'       => 'default',
             'retry_after' => 90,
-            'block_for' => 0,
+            'block_for'   => 0,
         ],
 
         'sqs' => [
             'driver' => 'sqs',
-            'key' => env('AWS_ACCESS_KEY_ID'),
+            'key'    => env('AWS_ACCESS_KEY_ID'),
             'secret' => env('AWS_SECRET_ACCESS_KEY'),
             'prefix' => env('SQS_PREFIX', 'https://sqs.us-east-1.amazonaws.com/your-account-id'),
-            'queue' => env('SQS_QUEUE', 'your-queue-name'),
+            'queue'  => env('SQS_QUEUE', 'your-queue-name'),
             'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
         ],
 
-        'redis' => [
-            'driver' => 'redis',
-            'connection' => 'default',
-            'queue' => env('REDIS_QUEUE', 'default'),
+        'redis'    => [
+            'driver'      => 'redis',
+            'connection'  => 'default',
+            'queue'       => env('REDIS_QUEUE', 'default'),
             'retry_after' => 90,
-            'block_for' => null,
+            'block_for'   => null,
+        ],
+        'rabbitmq' => [
+            'exchange'       => env('RABBITMQ_EXCHENGE', 'events'),
+            'host'           => env('RABBITMQ_HOST', 'rabbitmq'),
+            'port'           => env('RABBITMQ_PORT', 5672),
+            'user'           => env('RABBITMQ_USER', 'guest'),
+            'pass'           => env('RABBITMQ_PASSWORD', 'guest'),
+            'vhost'          => env('RABBITMQ_VHOST', '/'),
+            'queue'          => env('RABBITMQ_QUEUE', 'user.add'),
+            'logging'        => [
+                'enabled' => env('RABBITEVENTS_LOG_ENABLED', false),
+                'level'   => env('RABBITEVENTS_LOG_LEVEL', 'info'),
+            ]
         ],
 
     ],
@@ -80,9 +93,9 @@ return [
     */
 
     'failed' => [
-        'driver' => env('QUEUE_FAILED_DRIVER', 'database'),
+        'driver'   => env('QUEUE_FAILED_DRIVER', 'database'),
         'database' => env('DB_CONNECTION', 'mysql'),
-        'table' => 'failed_jobs',
+        'table'    => 'failed_jobs',
     ],
 
 ];
