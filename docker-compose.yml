@@ -4,7 +4,7 @@ services:
     build:
       context: service
     volumes:
-      - ./service:/var/www/html
+      - ./service:/var/service
     restart: always
     depends_on:
       - rabbitmq
