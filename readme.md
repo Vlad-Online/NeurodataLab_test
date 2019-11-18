@@ -103,6 +103,10 @@ id: null, error_code: 1, error_msg: “error description”
 
  `docker-compose up`
  
+После запуска контейнеров необходимо выполнить миграции базы данных
+
+ `docker-compose exec service php artisan migrate`
+ 
 # Отладка
 Для отправки тестового сообщения используйте следующую команду
 
